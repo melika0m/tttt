@@ -1,0 +1,31 @@
+{% extends 'base.html' %}  
+{% block title %}Saisie du Matricule{% endblock %}
+{% include 'cdn.html' %}
+{%block content %}
+
+
+  {% comment %} <div class="container-fluid" id="breadcrumb">
+    <h2 class="card-title">Notes en ligne</h2>
+    <p class="card-text"> ...... </p>
+  </div> {% endcomment %}
+  <div class="d-flex justify-content-center inline">
+  <div class="box1">
+    <div class="notes">
+    
+      <form method="post" id="form-etudiant">
+        {% csrf_token %}
+        <input
+          type="text"
+          id="matricule"
+          name="matricule"
+          placeholder="Veuillez saisir votre matricule:"
+        />
+        <input type="submit" value="Confirmer" />
+      </form>  
+    </div>
+    </div>
+    <br />
+    <div id="result"></div>
+  </div>
+</div>
+{% endblock %}

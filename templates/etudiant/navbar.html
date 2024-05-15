@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'staticEtudiant/css/main.css' %}">
+{% include 'cdn.html' %}
+<!-- ======= Header ======= -->
+<header id="header" class="header d-flex align-items-center">
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo d-flex align-items-center">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <img src="{% static 'staticEtudiant/img/logo-iscae.png' %}" alt="">
+      <h1>ReclameIci<span>.</span></h1>
+    </a>
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a href="https://iscae.mr/">Home</a></li>
+
+        <li><a href="{% url 'login' %}">Se connecter</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profil_etudiant' %}">Profile</a></li>
+        <li>
+          <form action="{% url 'logout_etudiant' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit"  class="logout-link"> Déconnexion</button>
+          </form>
+        </li>
+        {% endif %}
+      </ul>
+    </nav><!-- .navbar -->
+    <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+    <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+  </div>
+</header><!-- End Header -->

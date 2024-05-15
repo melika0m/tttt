@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Agent de Scolarité</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card-content {
+            margin-bottom: 10px;
+        }
+        .card-content p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tableau de bord de l'Agent de Scolarité</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Réclamations</h5>
+                <div class="card-content">
+                    <p>Total des réclamations : {{ total_reclamations }}</p>
+                    <p>Réclamations traitées : {{ total_reclamations_traitees }}</p>
+                    <p>Réclamations en attente : {{ total_reclamations_en_attente }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Matières</h5>
+                <div class="card-content">
+                    <p>Total des matières : {{ total_matiere }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

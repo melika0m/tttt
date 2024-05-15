@@ -1,0 +1,70 @@
+{% extends 'html/ltr/vertical-menu/index.html' %}
+
+{% block content %}
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <h3 class="content-header-title">Liste des réclamations par étudiant</h3>
+            </div>
+        </div>
+        <div class="content-body">
+           
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Réclamations Détails</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                {% for etudiant_reclamation in reclamations_par_etudiant %}
+                                <div class="user-reclamations">
+                                    <h5 class="mt-2"><strong>{{ etudiant_reclamation.etudiant_nom }} {{ etudiant_reclamation.etudiant_prenom }}</strong></h5>
+                                    <p>Matricule: <strong>{{ etudiant_reclamation.etudiant__matricule }}</strong></p>
+                                    <p>Filière: <strong>{{ etudiant_reclamation.etudiant__filiere }}</strong></p>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Matière</th>
+                                                    <th>Contenu</th>
+                                                    <th>Note Exacte</th>
+                                                    <th>Type</th>
+                                                    <th>Date de Réclamation</th>
+                                                    <th>Semestre</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for reclamation in reclamations %}
+                                                {% if reclamation.etudiant_id == etudiant_reclamation.etudiant__matricule %}
+                                                <tr>
+                                                    <td>{{ reclamation.Matiere.titre }}</td>
+                                                    <td>{{ reclamation.contenu }}</td>
+                                                    <td>{{ reclamation.note_exacte }}</td>
+                                                    <td>{{ reclamation.type }}</td>
+                                                    <td>{{ reclamation.date_reclamation }}</td>
+                                                    <td>{{ reclamation.Matiere.Semestre.Semestre }}</td>
+                                                    <td>
+                                                        <span class="badge badge-success">{{ reclamation.status }}</span>
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock %}

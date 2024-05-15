@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tableau de bord - Agent de Scolarité</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #28a745; /* Vert */
+        color: #fff;
+        padding: 20px;
+      }
+      .sidebar h2 {
+        margin-bottom: 20px;
+      }
+      .logout-btn {
+        margin-top: 20px;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+      }
+      .logout-btn:hover {
+        color: #f8f9fa;
+      }
+      .logout-btn i {
+        margin-right: 10px;
+        font-size: 24px; /* Taille de l'icône agrandie */
+      }
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+      }
+      .welcome-message {
+        margin-bottom: 20px;
+      }
+      .user-info {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .reclamation-period {
+        margin-bottom: 20px;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      .switch input:checked + .slider {
+        background-color: #28a745; /* Vert */
+      }
+      .switch input:focus + .slider {
+        box-shadow: 0 0 1px #28a745; /* Vert */
+      }
+      .switch input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <p>Bienvenue, {{ nom_utilisateur }}</p>
+      <ul>
+        <li>
+          <a href="{% url 'liste_des_reclamations' %}"
+            >Liste des Réclamations</a
+          >
+        </li>
+        <li></li>
+        <li><a href="{%url 'change_password' %}">Changer Mot de passe</a></li>
+        <li><a href="{%url 'periode_reclamation' %}">Periode de reclamation</a></li>
+        <li><a href="{%url 'dashbord' %}">Tableau de bord</a></li>
+      </ul>
+      <form action="{% url 'logout_agent' %}" method="post">
+        {% csrf_token %}
+        <button type="submit"><i class="fas fa-sign-out-alt"></i
+          ></button>
+    </form>
+      </a>
+    </div>
+    <div class="content">
+      <div class="container">
+        <h1>Tableau de bord - Agent de Scolarité</h1>
+        <div class="welcome-message">
+          <h2>Bienvenue, {{ nom_utilisateur }}</h2>
+        </div>
+        <div class="user-info">
+          <p>Nom de l'utilisateur: {{ nom_utilisateur }}</p>
+          <!-- Ajoutez d'autres informations sur l'utilisateur ici -->
+        </div>
+        <!-- Contenu principal inchangé -->
+       
+ 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleReclamation = document.getElementById("toggleReclamation");
+        toggleReclamation.addEventListener("change", function () {
+          if (toggleReclamation.checked) {
+            alert("La période de réclamation est activée !");
+          } else {
+            alert("La période de réclamation est désactivée !");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

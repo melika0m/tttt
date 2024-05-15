@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header">
+        <h2>Contact</h2>
+      </div>
+
+      <div class="row gx-lg-0 gy-4">
+
+        <div class="col-lg-4">
+
+          <div class="info-container d-flex flex-column align-items-center justify-content-center">
+            <div class="info-item d-flex">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h4>name</h4>
+                <p>test</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex">
+              <i class="bi bi-phone flex-shrink-0"></i>
+              <div>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          
+          </div>
+
+        </div>
+
+        <div class="col-lg-8">
+          <form action="forms/contact.php" method="post" role="form" class="php-email-form" enctype="multipart/form-data" onsubmit="toggleUpload()">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                    <label for="fileInput" class="form-label">Choose file or take a photo</label>
+                    <input type="file" class="form-control" id="fileInput" accept="image/*, .pdf" name="preuve_reclamation" style="display: none;">
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+               
+              </div>
+            </div>
+            <div class="form-group mt-3">
+                    <label for="messageText" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="messageText" rows="3" name="contenu"></textarea>
+            </div>
+            <div class="form-group mt-3">
+                <label for="matiere">Matière concernée:</label><br>
+                <select id="matiere" name="matiere">
+                    {% for matiere in matieres %}
+                    <option value="{{ matiere.code }}">{{ matiere.titre }}</option>
+                    {% endfor %}
+                </select><br>
+            </div>
+            <div class="form-group mt-3">
+                <label for="type_examen">Type d'examen:</label><br>
+                <input type="checkbox" id="cc" name="type_examen" value="CC" onchange="toggleUpload()">
+                <label for="cc">Contrôle Continu</label><br>
+                <input type="checkbox" id="examen" name="type_examen" value="Examen">
+                <label for="examen">Examen</label><br>
+            </div>
+            <div class="my-3">
+
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div><!-- End Contact Form -->
+
+      </div>
+
+    </div>
+  </section>
+  {% endblock %}

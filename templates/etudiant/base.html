@@ -1,0 +1,32 @@
+{% comment %} {% load debug_toolbar %} {% endcomment %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Titre par défaut{% endblock %}</title>
+    <!-- Ajouter le lien vers Bootstrap CSS -->
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'staticEtudiant/css/main.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    {% include 'topbar.html' %}
+    {% include 'navbar.html' %}
+</head>
+<body>
+  
+    
+    <main class="container mt-4">
+        {% block content %}
+        <!-- Le contenu de la page spécifique sera inséré ici -->
+        {% endblock %}
+    </main>
+
+
+    <!-- Ajouter le lien vers Bootstrap JS -->
+  
+    {% include 'footer.html' %}
+</body>
+</html>

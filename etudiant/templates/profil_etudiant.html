@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block title %} Profile de l'étudiant {% endblock %}
+
+{% block content %}
+<main id="main">
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-cotent-between gy-4 mt-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-description">
+              <div class="testimonial-item mb-4">
+                
+                <img src="{% static 'img/logo-iscae.png' %}" alt="" style="max-width: 150px;"> <!-- Adjusted size here -->
+                <h3>{{ etudiant.user.username }}</h3>
+                <h4>{{ etudiant.filiere.nom }}</h4>
+           
+              </div>
+              
+             
+              
+              <span><strong>Matricule:</strong> {{ etudiant.matricule }}</span></br>
+              <span><strong>NNI:</strong> {{ etudiant.nni }}</span></br>
+              <span><strong>Sexe:</strong> {{ etudiant.sexe }}</span></br>
+              <span><strong>Numéro de téléphone:</strong> {{ etudiant.numero_telephone }}</span></br>
+
+             
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="portfolio-info">
+              <h3>Réclamations</h3>
+              <ul>
+                  {% for reclamation in reclamations %}
+                  <li>
+                      <spam><strong>Matière:</strong> {{ reclamation.Matiere.titre }}<br></span>
+                      <strong>Statut:</strong>
+                      {% if reclamation.status == 'en attente' %}
+                      <span class="badge bg-warning text-dark">{{ reclamation.status }}</span>
+                       {% elif reclamation.status == 'Refusée' %}
+                       <span class="badge bg-danger text-dark">{{ reclamation.status }}</span>
+                       {% elif reclamation.status == 'Acceptee' %}
+                       <span class="badge bg-success text-dark">{{ reclamation.status }}</span>
+                       {% elif reclamation.status == 'En cours' %}
+                       <span class="badge bg-info text-dark">{{ reclamation.status }}</span>
+                       {% elif reclamation.status == 'Terminée' %}
+                       <span class="badge bg-success text-dark">{{ reclamation.status }}</span>
+                       {% endif %}
+                       
+                       <br>
+                  </li>
+                  {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+{% endblock %}

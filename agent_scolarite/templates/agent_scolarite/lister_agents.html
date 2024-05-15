@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des agents de scolarité</title>
+</head>
+<body>
+    <h1>Liste des agents de scolarité</h1>
+    <ul>
+        {% for agent in agents %}
+        <li>ID: {{ agent.id }}, Email: {{ agent.email }}, Téléphone: {{ agent.numero_telephone }}, Poste: {{ agent.poste_agent_scolarite }}, User ID: {{ agent.user_id }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

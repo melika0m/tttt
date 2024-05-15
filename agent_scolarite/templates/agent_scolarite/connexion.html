@@ -1,0 +1,70 @@
+{% include 'cdn.html' %} {% load static %} {% block content %}
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header">
+      <h2></h2>
+    </div>
+
+    <div class="row gx-lg-0 gy-4">
+      <div class="col-lg-4">
+        <div
+          class="info-container d-flex flex-column align-items-center justify-content-center"
+        >
+          <div class="info-item d-flex justify-content-center">
+            <div class="">
+            <img
+              src="{% static 'staticEtudiant/img/logo-iscae.png' %}"
+              alt=""
+              width="210"
+              height="210"
+
+            />
+            </div>
+          </div>
+          <!-- End Info Item -->
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        
+        <form method="post"  class="php-email-form">
+          
+          {% csrf_token %} 
+          {% if error_message %}
+        <p style="color: red">{{ error_message }}</p>
+        {% endif %}
+          <div class="row">
+            <div class="col-md-6 form-group form-control">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control php-input"
+                placeholder="Email : "
+                required
+              />
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-6 form-group form-control">
+              <input
+                class="form-control php-input"
+                type="password"
+                id="mot_de_passe"
+                name="mot_de_passe"
+                required
+                placeholder="Mot de passe:"
+              />
+            </div>
+          </div><br>
+
+       
+          <div class="col-lg-8"><button type="submit"><strong>Connecter</strong></button></div>
+        </form>
+      </div>
+      <!-- End Contact Form -->
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->
+{% endblock %}

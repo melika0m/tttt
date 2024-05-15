@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Informations de l'étudiant {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center inline">
+  <div class="notes">
+    <form method="post" id="form-etudiant">
+      {% csrf_token %}
+      <input
+        type="text"
+        id="matricule"
+        name="matricule"
+        class="form-control my-2"
+        placeholder="Veuillez saisir votre matricule:"
+        value="{{ matricule }}"
+      />
+
+      <input type="submit" value="Confirmer" class="btn btn-primary my-2" />
+      &nbsp;&nbsp;&nbsp;
+      <select name="semestre" id="semestre" class="form-control my-2">
+        <option value="">Semestre</option>
+        {% for semestre in semestres|dictsort:"Semestre" %}
+        <option value="{{ semestre.id_semestre }}">
+          {{ semestre.id_semestre }}
+        </option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+</div>
+<br />
+
+<div class="cont-marg-bottom">
+  <div class="container">
+    <h5>Informations de l'étudiant :</h5>
+    <div id="imprimer">
+      <hr>
+      <span>Nom et prénom: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<strong>{{ nom }} {{ prenom }}</strong></span><br />
+      <span>Numéro d'inscription :&nbsp;&nbsp;<strong>{{ matricule }} </strong></span><br />
+      <span>Année Académique :&nbsp;&nbsp; <strong>{{ annee_univ }} </strong></span><br />
+      <span>Filière: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ niveau }} {{ filiere }}</strong></span><br />
+      <hr>
+
+      {% if semestre_selectionne %}
+      <div class="result" id="resultats-section">
+        <span>Semestre : <strong>{{ semestre_selectionne }} </strong></span><br />
+        <div class="resultMat">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Matière / Module</th>
+                <th>Contrôle Continu</th>
+                <th>Contrôle Finale</th>
+                <th>Note Finale</th>
+                <th>Credit</th>
+                <th>Décisions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for resultat in resultats %}
+              {% ifchanged resultat.matiere.Module.module %}
+              <tr>
+                <th class="th2"><strong>{{ resultat.matiere.Module.module }}</strong></th>
+                <td colspan="3"><strong>13.5</strong></td>
+                <td><strong>7</strong></td>
+                <td>
+                  <strong>
+                    {% for module, decision in decision_du_module.items %}
+                    {% if module == resultat.matiere.Module.module %}
+                      {% if decision == 'Rattrapage' %}
+                      Rattrapage
+                      {% elif decision == 'Valide' %}
+                      validé
+                      {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                  </strong>
+                </td>
+              </tr>
+              {% endifchanged %}
+              <tr>
+                <td class="mat-num"><strong>{{ resultat.matiere.titre }}</strong></td>
+                <td class="resu-num">{{ resultat.note_cc }}</td>
+                <td class="resu-num">{{ resultat.note_ex }}</td>
+                <td class="resu-num">{{ resultat.note_finale }}</td>
+                <td class="resu-num">{{ resultat.matiere.credit }}</td>
+                <td class="mat-num">{{ resultat.validation }}</td>
+              </tr>
+              {% endfor %}
+              <tr colspan="3">
+                <th colspan="4"><strong>Moyenne Générale</strong></th>
+                <th>Credit</th>
+                <th colspan="2">Décision</th>
+              </tr>
+            </tbody>
+            {% for resultat in resultats_moyen_general %}
+            <tr>
+              <td colspan="4" class="resu-num"><strong>{{ resultat.moy_g }}</strong></td>
+              <td class="resu-num"><strong>{{ credits_semestre }}</strong></td>
+              <td colspan="2" class="resu-num"><strong>{{ decision }}</strong></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+
+      <!-- Adjust button placement here -->
+      <div class="d-flex justify-content-end mt-4">
+        {% if autorisation_existante %}
+        <a href="{% url 'create_reclamation' %}" class="btn btn-primary mr-2">Faire une réclamation</a>
+        {% endif %}
+        
+        <button onclick="imprimerPage()" class="btn btn-primary">Imprimer</button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+document.getElementById("semestre").addEventListener("change", function() {
+  var selectedSemestre = this.value;
+  var resultatsSection = document.getElementById("resultats-section");
+
+  if (selectedSemestre) {
+    resultatsSection.style.display = "block";
+  } else {
+    resultatsSection.style.display = "none";
+  }
+});
+
+document.getElementById("semestre").addEventListener("change", function() {
+  document.getElementById("form-etudiant").submit();
+});
+
+function imprimerPage() {
+  var contenuImprimer = document.getElementById("imprimer").innerHTML;
+  var fenetreImprimer = window.open('', '', 'height=400,width=600');
+  fenetreImprimer.document.write('<html><head><title>Impression</title>');
+  fenetreImprimer.document.write('<style>');
+  fenetreImprimer.document.write('table { width: 100%; border: 1px solid black; border-collapse: collapse; }');
+  fenetreImprimer.document.write('body {padding-top:100px; padding-left:20px; padding-right:20px; }');
+  fenetreImprimer.document.write('td, th { text-align: center; border: 1px solid black; padding: 8px; }');
+  fenetreImprimer.document.write('th { background-color: #C0C0C0; color: #333; }');
+  fenetreImprimer.document.write('th.th2 { background-color: #F0F0F0; color: #666; }');
+  fenetreImprimer.document.write('</style>');
+  fenetreImprimer.document.write('</head><body>');
+  fenetreImprimer.document.write('<style>@media print { #en-tete { position: fixed; top: 0; left: 0; right: 0; } }</style>');
+  fenetreImprimer.document.write('<div id="en-tete"><img src="https://www.mesrs.gov.mr/sites/default/files/2022-01/ISCAE.jpg" alt="En-tête" style="width: 100%;"></div>');
+  fenetreImprimer.document.write(contenuImprimer);
+  fenetreImprimer.document.write('</body></html>');
+  fenetreImprimer.document.close();
+  fenetreImprimer.print();
+}
+</script>
+
+{% endblock %}

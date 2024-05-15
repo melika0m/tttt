@@ -1,0 +1,69 @@
+{% extends 'html/ltr/vertical-menu/index.html' %}
+
+{% block content %}
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- Recent Transactions Section -->
+            <div class="row">
+                <div id="recent-transactions" class="col-12">
+                    <h6 class="my-2">Liste des Réclamations</h6>
+                    <!-- Filter Form -->
+                    <div class="mb-3">
+                        <form method="GET" class="form-inline">
+                            <div class="form-group mr-2">
+                                <label for="Semestre_id" class="mr-2">Semestre:</label>
+                                <select name="Semestre_id" id="Semestre_id" class="form-control">
+                                    <option value="">Tous les semestres</option>
+                                    {% for semestre in semestres %}
+                                    <option value="{{ semestre.id_semestre }}">{{ semestre.Semestre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filtrer</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="table-responsive">
+                                <table id="recent-orders" class="table table-hover table-xl mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0"><strong> Étudiant</strong></th>
+                                            <th class="border-top-0"><strong>Contenu</strong></th>
+                                            <th class="border-top-0"><strong>Type</strong></th>
+                                            <th class="border-top-0"><strong>Statut</strong></th>
+                                            <th class="border-top-0"><strong>Note Exacte</strong></th>
+                                            <th class="border-top-0"><strong>Date de Réclamation</strong></th>
+                                            <th class="border-top-0"><strong>Actions</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for reclamation in reclamations %}
+                                        <tr>
+                                            <td>{{ reclamation.etudiant.matricule }}</td>
+                                            <td>{{ reclamation.contenu }}</td>
+                                            <td>{{ reclamation.type }}</td>
+                                            <td>{{ reclamation.status }}</td>
+                                            <td>{{ reclamation.note_exacte }}</td>
+                                            <td>{{ reclamation.date_reclamation }}</td>
+                                            <td>
+                                                <a href="{% url 'accepter_reclamation' reclamation.id_reclamation %}" class="btn btn-success btn-sm">Accepter</a>
+                                                <a href="{% url 'refuser_reclamation' reclamation.id_reclamation %}" class="btn btn-danger btn-sm">Refuser</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Recent Transactions Section -->
+        </div>
+    </div>
+</div>
+{% endblock %}

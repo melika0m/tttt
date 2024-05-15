@@ -1,0 +1,291 @@
+/* styles.css */
+
+*{
+  margin: 0px;
+  padding: 0px;
+  
+}
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Styles de base pour le corps */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+.cont-marg-bottom {
+
+  margin-bottom: 300px;
+  @media (max-width: 576px) {
+    font-size: small;
+    padding: 0px;
+  }
+  
+}
+
+/* Media query pour les petits écrans */
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+    /* Ajoutez d'autres ajustements pour les petits écrans ici */
+  }
+}
+
+
+#breadcrumb {
+  height: 250px;
+  background-image: url(/static/img/iscae1.png);
+  margin-bottom: 55px;
+  position: relative;
+  color: white;
+  padding-top: 70px;
+  padding-left: 5.1%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-repeat: no-repeat;
+  background-color: #FFF;
+  background-position: center;
+}
+
+
+
+/* Styles de base */
+.notes {
+  position: relative;
+  padding-top: 20px;
+  align-items: center; /* Centrer les éléments verticalement */
+}
+
+
+/* Formulaire */
+.notes form {
+  text-align: center;
+}
+
+.notes form label {
+  display: none;
+}
+
+/* Styles pour tous les types d'input */
+.notes input[type="text"],
+.notes input[type="email"],
+.notes input[type="password"] {
+  padding: 10px; 
+  margin-bottom: 10px;
+  margin-top: 10px; /* Ajoute une marge supérieure de 10 pixels */
+
+  border-radius: 33px;
+  outline: none;
+  border: none;
+  width: 100%; /* Largeur pleine par défaut */
+  background-color: #ebebeb;
+  display: block; /* Afficher les champs d'entrée verticalement */
+}
+
+.notes input[type="submit"] {
+  margin-bottom: 10px;
+  background: #00796b;
+  border: none;
+  color: white;
+  padding: 9px 43px;
+  border-radius: 29px;
+  font-style: bold;
+}
+
+.php-input{
+  outline: none;
+  border: none;
+  width: 100%; /* Largeur pleine par défaut */
+  padding: 10;
+}
+
+.notes select {
+  margin-bottom: 10px;
+  background:  #00796b;
+  border: none;
+  color: white;
+  padding: 9px 43px;
+  border-radius: 29px;
+  font-style: bold;
+}
+
+
+/* Media Queries pour les appareils mobiles */
+@media only screen and (min-width: 600px) {
+  .notes form {
+    display: flex; /* Afficher les éléments en ligne */
+    justify-content: center; /* Centrer les éléments horizontalement */
+    align-items: center; /* Centrer les éléments verticalement */
+  }
+
+  .notes input[type="text"] {
+    margin-right: 10px; /* Ajouter un espacement entre les champs de texte */
+    width: auto; /* Réinitialiser la largeur à automatique */
+  }
+  
+  /* Ajuster la largeur du champ de texte sur les écrans plus larges */
+  .notes input[type="text"] {
+    width: 300px; /* Largeur souhaitée pour les écrans de PC */
+  }
+
+  .notes input[type="email"] {
+    margin-right: 10px; /* Ajouter un espacement entre les champs de texte */
+    width: auto; /* Réinitialiser la largeur à automatique */
+  }
+  .notes input[type="email"] {
+    width: 400px; /* Largeur souhaitée pour les écrans de PC */
+  }
+
+  .notes input[type="password"] {
+    margin-right: 10px; /* Ajouter un espacement entre les champs de texte */
+    width: auto; /* Réinitialiser la largeur à automatique */
+  }
+  .notes input[type="password"] {
+    width: 400px; /* Largeur souhaitée pour les écrans de PC */
+  }
+}
+
+.notes2 {
+  position: relative;
+  padding-top: 50px;
+  align-items: center; /* Centrer les éléments verticalement */
+}
+
+/* Formulaire */
+.notes2 from {
+  text-align: center;
+}
+
+.notes2 form label {
+  display: none;
+}
+
+/* Styles pour tous les types d'input */
+
+.notes2 input[type="text"],
+.notes2 input[type="email"],
+.notes2 input[type="password"] {
+  padding: 10px; 
+  margin-bottom: 10px;
+  margin-top: 10px; /* Ajoute une marge supérieure de 10 pixels */
+  border-radius: 33px;
+  outline: none;
+  border: none;
+  width: 100%; /* Largeur pleine par défaut */
+  background-color: #ebebeb;
+  display: block; /* Afficher les champs d'entrée verticalement */
+}
+
+.notes2 input[type="submit"] {
+  margin-bottom: 10px;
+  background: #00796b;
+  border: none;
+  color: white;
+  padding: 9px 43px;
+  border-radius: 29px;
+  font-style: bold;
+}
+@media (max-width: 576px) {
+  .notes2 form {
+    /* display: flex; Afficher les éléments en ligne */
+    justify-content: center; /* Centrer les éléments horizontalement */
+    align-items: center; /* Centrer les éléments verticalement */
+  }
+  .notes2 input[type="email"],
+  .notes2 input[type="password"],
+  .notes2 input[type="submit"]
+  {
+    margin-right: 10px; /* Ajouter un espacement entre les champs de texte */
+    width: 100%; /* Réinitialiser la largeur à automatique */
+  }
+  .notes2 img{
+    width: 110px;
+    height: 110px;
+  }
+
+}
+
+.resultMat {
+  background-color: #ffffff;
+  margin-bottom: 160px;
+}
+
+/* Style de la table */
+.resultMat table {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+/* Style des cellules de la table */
+.resultMat table,
+.resultMat th,
+.resultMat td {
+  border: 1px solid rgba(161, 152, 152, 0.568);
+  padding: 8px;
+  text-align: center;
+}
+
+/* Style des en-têtes de colonne */
+.resultMat th {
+  background-color: #008374;
+  color: #ffffff;
+
+}
+
+/* Media query pour les petits écrans */
+@media (max-width: 576px) {
+  .resultMat table {
+    width: 100%; /* La table prendra toute la largeur de l'écran sur les petits écrans */
+    font-size: x-small; /* Taille de police réduite pour les petits écrans */
+    margin: 0px;
+    padding: 0px;
+    
+  }
+  
+  .resultMat th {
+     background-color:  #008374;
+     color: #ffffff;
+     padding: 2px;
+  }
+  .resultMat td.resu-num {
+    font-size: small; /* Appliquer une taille de police plus petite aux cellules avec la classe resu-num */
+  }
+}
+
+
+/* Style de la boîte autour du formulaire avec une ombre */
+.box1 {
+  background-color: #f0f0f042;
+  border: 0px solid #005153;
+  border-radius: 5px;
+  padding: 20px;
+  min-width: 60%;
+  max-width: 700px;
+  margin: 100px auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajoute une ombre douce */
+  align-items: center;
+  /* Media query pour les petits écrans */
+  @media (max-width: 576px) {
+    max-width: 100%; /* La boîte prendra toute la largeur de l'écran */
+    margin: 20px; /* Marge réduite pour les petits écrans */
+    margin-top: 150px;
+    margin-bottom: 210px; 
+  }
+}

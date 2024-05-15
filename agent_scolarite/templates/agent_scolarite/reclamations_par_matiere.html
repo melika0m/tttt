@@ -1,0 +1,62 @@
+{% extends 'html/ltr/vertical-menu/index.html' %}
+
+{% block content %}
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <h1>listes des matieres</h1>
+        <div class="content-body">
+            <!-- Dynamic Section for Réclamations par matière -->
+            {% for matiere, reclamations in reclamations_par_matiere.items %}
+            <div class="row">
+                <div id="recent-transactions" class="col-12">
+                    <h6 class="my-2">Réclamations acceptées pour la matière: {{ matiere.titre }}</h6>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="table-responsive">
+                                <table id="recent-orders" class="table table-hover table-xl mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Réclamations</th>
+                                            <th class="border-top-0">Preuve</th>
+                                            <th class="border-top-0">Statut</th>
+                                            <th class="border-top-0">Date de Réclamation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for reclamation in reclamations %}
+                                            <tr>
+                                                <td class="text-truncate">{{ reclamation.contenu }}</td>
+                                                <td class="text-truncate">
+                                                    {% if reclamation.preuve_reclamation %}
+                                                        <a href="{{ reclamation.preuve_reclamation.url }}" target="_blank" class="btn-open-pdf">Ouvrir PDF</a>
+                                                    {% else %}
+                                                        No preuve available
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-truncate">{{ reclamation.status }}</td>
+                                                <td class="text-truncate">{{ reclamation.date_reclamation }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- End of Dynamic Section -->
+
+            <div class="row">
+                <div class="col-12">
+                    <center>
+                        <button onclick="window.print()" class="btn btn-outline-primary">Imprimer</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

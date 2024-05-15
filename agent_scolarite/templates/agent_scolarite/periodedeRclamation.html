@@ -1,0 +1,85 @@
+{% extends 'html/ltr/vertical-menu/index.html' %}  
+{% block content %}
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <section class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-10 col-12">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <p class="text-bold-700 text-uppercase mb-0">Periode de reclamation</p>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <!-- Start of the Form -->
+                                <form class="form-horizontal form-user-profile row mt-2" method="POST">
+                                    {% csrf_token %}
+                                    
+                                    <div class="col-6">
+                                        <fieldset class="form-label-group">
+                                            <input type="datetime-local" class="form-control" id="id_date_expiration" name="date_expiration" min="{{ datetime.now|date:'Y-m-d\TH:i' }}" required="">
+                                            <label for="id_date_expiration">Date et heure d'expiration</label>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-6">
+                                        <fieldset class="form-label-group">
+                                            <input type="text" class="form-control" id="id_AgentDeScolarite" name="AgentDeScolarite" value="{{ user }}" readonly>
+                                            <label for="id_AgentDeScolarite">Agent de scolarité</label>
+                                        </fieldset>
+                                    </div>
+                                    <input id="id_Etat" hidden name="Etat" value="OU" required>
+                                    
+                                    <div class="col-12 text-right">
+                                        {% if not autorisation_existante %}
+                                            <button type="submit" class="btn-gradient-primary my-1">Autoriser</button>
+                                        {% else %}
+                                            <button type="button" class="btn-gradient-primary my-1" disabled>Autoriser</button>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                                <!-- End of the Form -->
+
+                                <!-- Start of the Authorizations List -->
+                                {% for autorisation in autorisations_ouvertes %}
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Date d'expiration: {{ autorisation.date_expiration }}</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p>Agent de scolarité: {{ autorisation.AgentDeScolarite }}</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p>Etat: {{ autorisation.Etat }}</p>
+                                            {% if autorisation.Etat == 'OU' %}
+                                                <a href="{% url 'changer_etat_autorisation' autorisation.id_autorisation 'FE' %}">Fermer</a>
+                                            {% else %}
+                                                <a href="{% url 'changer_etat_autorisation' autorisation.id_autorisation 'OU' %}">Ouvrir</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <!-- End of the Authorizations List -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    // Script to set the minimum date and time for the datetime-local input
+    var now = new Date();
+    var formattedNow = now.toISOString().slice(0, 16);
+    document.getElementById("id_date_expiration").min = formattedNow;
+</script>
+
+{% endblock %}

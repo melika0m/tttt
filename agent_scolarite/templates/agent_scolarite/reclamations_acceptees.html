@@ -1,0 +1,65 @@
+{% extends 'html/ltr/vertical-menu/index.html' %}
+
+{% block content %}
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <h3 class="content-header-title">Réclamations Acceptées</h3>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Accepted Reclamations Section -->
+            <div class="row">
+                <div id="accepted-reclamations" class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Détails des Réclamations Acceptées</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                          
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <!-- Print Button -->
+                                <div class="text-right mb-1">
+                                    <button onclick="window.print()" class="btn btn-info"><i class="la la-print"></i> Imprimer</button>
+                                </div>
+                                <!-- Reclamations Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-xl mb-0" id="tableau-impression">
+                                        <thead>
+                                            <tr>
+                                                <th>Réclamations</th>
+                                                <th>Preuve</th>
+                                                <th>Statut</th>
+                                                <th>Date de Réclamation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for reclamation in reclamations_acceptees %}
+                                            <tr>
+                                                <td>{{ reclamation.contenu }}</td>
+                                                <td>
+                                                    {% if reclamation.preuve_reclamation %}
+                                                    <a href="{{ reclamation.preuve_reclamation.url }}" target="_blank" class="btn btn-outline-primary">Ouvrir PDF</a>
+                                                    {% else %}
+                                                    Pas de preuve disponible
+                                                    {% endif %}
+                                                </td>
+                                                <td><span class="badge badge-success">{{ reclamation.status }}</span></td>
+                                                <td>{{ reclamation.date_reclamation }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Accepted Reclamations Section -->
+        </div>
+    </div>
+</div>
+{% endblock %}

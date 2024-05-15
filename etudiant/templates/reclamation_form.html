@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Custom styles for mobile buttons */
+    @media (max-width: 768px) {
+        .thin-button {
+            padding: 6px 10px; /* Smaller padding for thinner appearance */
+            font-size: 10px; /* Smaller font size for mobile */
+            line-height: 1.2; /* Adjust line height to fit the design */
+        }
+        
+        .button-container button {
+            padding: 6px 3px; /* Reduced padding for a thinner button */
+            font-size: small; /* Smaller font size for readability */
+            margin-bottom: 2px; /* Reduced margin to stack closely */
+            width: 50%; /* Full width for easier touch */
+        }
+    }
+
+    /* Additional styling for all screen sizes */
+    .button-container button {
+        margin-bottom: 10px; /* Space between buttons when stacked */
+        width: 100%; /* Ensuring full width for smaller screens */
+    }
+</style>
+
+<script>
+    function toggleUpload(type) {
+        var fileInput = document.getElementById('fileInput');
+        if (type === 'cc') {
+            fileInput.style.display = 'block';
+        } else {
+            fileInput.style.display = 'none';
+        }
+    }
+</script>
+
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+        <div class="row gx-lg-0 gy-4">
+            <div class="col-lg-4">
+                <div class="info-container d-flex flex-column align-items-center justify-content-center">
+                    <div class="info-item d-flex">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            <h4>Alert:</h4>
+                            <p>"Attention ! Soumettre de fausses réclamations est strictement interdit et entraînera des sanctions disciplinaires."</p>
+                        </div>
+                    </div><!-- End Info Item -->
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <form id="reclamation-form" method="post" role="form" class="php-email-form" enctype="multipart/form-data" onsubmit="toggleUpload()">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <!-- Additional inputs can be placed here -->
+                        </div>
+                    </div>
+                    <div id="autreReclam">
+                        <div class="form-group mt-3">
+                            <label for="messageText" class="form-label">Description</label>
+                            <textarea class="form-control" type="text" id="id_contenu" rows="3" name="contenu" required></textarea>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="matiere">Matière concernée:</label><br>
+                            <select id="id_Matiere" class="form-control" name="Matiere" required>
+                                <option value="" disabled selected>Choisissez une matière</option>
+                                {% for matiere in matieres %}
+                                <option value="{{ matiere.code }}">{{ matiere.titre }}</option>
+                                {% endfor %}
+                            </select><br>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="type_examen">Type d'examen:</label><br>
+                            <input type="radio" id="cc" name="type_reclamation" value="Devoir" onchange="toggleUpload('cc')">
+                            <label for="cc">Contrôle Continu</label><br>
+                            <input type="radio" id="examen" name="type_reclamation" value="Examen" onchange="toggleUpload('examen')">
+                            <label for="examen">Examen</label><br>
+                        </div>
+        
+                        <div class="form-group mb-3" id="fileInput" style="display: none;" aria-required="">
+                            <label for="cc">Note exacte: </label><br>
+                            <input type="number" class="form-control" name="note_exacte"></br>
+                            <label for="fileInput" class="form-label">Choisir un fichier ou un photo</label>
+                            <input type="file" class="form-control" accept="image/*, .pdf" name="preuve_reclamation" id="preuve_reclamation">
+                        </div>
+                    </div>
+                    <div class="text-center button-container">
+                        <button type="submit" name="action" value="reclamer" class="thin-button">Reclamer</button>
+                        <button type="submit" name="action" value="reclamer_et_ajouter" class="thin-button">Reclamer et Ajouter Autre</button>
+                    </div>
+                </form>
+            </div><!-- End Contact Form -->
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+{% endblock %}

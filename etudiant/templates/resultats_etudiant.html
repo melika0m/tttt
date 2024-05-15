@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{%block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats des matières</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Résultats des matières</h2>
+    <p>Matricule de l'étudiant: {{ matricule }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Matière</th>
+                <th>Note Contrôle Continu</th>
+                <th>Note Examen</th>
+                <th>Note Finale</th>
+                <th>Note de Rattrapage</th>
+                <th>Validation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultat in resultats %}
+            <tr>
+                <td>{{ resultat.matiere.titre }}</td>
+                <td>{{ resultat.note_cc }}</td>
+                <td>{{ resultat.note_ex }}</td>
+                <td>{{ resultat.note_finale }}</td>
+                <td>{{ resultat.note_rattrapage }}</td>
+                <td>{{ resultat.validation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}
